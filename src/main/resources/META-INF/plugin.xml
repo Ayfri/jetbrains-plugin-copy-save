@@ -7,12 +7,20 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.ayfri.jetbrainsplugincopysave.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.ayfri.jetbrainsplugincopysave.services.MyProjectService"/>
-    </extensions>
-
-    <applicationListeners>
-        <listener class="com.github.ayfri.jetbrainsplugincopysave.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
+		<actionOnSave
+			implementation="com.github.ayfri.jetbrainsplugincopysave.CopyFileOnSaveAction"
+			id="CopyFileOnSaveAction"
+			order="first"
+		/>
+		<projectService
+			serviceImplementation="com.github.ayfri.jetbrainsplugincopysave.CopyFileOnSaveState"
+		/>
+		<projectConfigurable
+		    displayName="Copy Current File On Save"
+            instance="com.github.ayfri.jetbrainsplugincopysave.CopyFileOnSaveConfigurable"
+		    id="com.github.ayfri.jetbrainsplugincopysave.CopyFileOnSaveConfigurable"
+		    parentId="tools"
+			nonDefaultProject="true"
+	    />
+	</extensions>
 </idea-plugin>
